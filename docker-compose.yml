@@ -1,0 +1,20 @@
+# Local PostgreSQL 16 + pgvector for the K8s RAG security homework.
+# Reads ADMIN_USER / ADMIN_PASSWORD / DB_PORT from .env (never committed).
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: k8s_rag_postgres
+    environment:
+      POSTGRES_USER: ${ADMIN_USER:-fde}
+      POSTGRES_PASSWORD: ${ADMIN_PASSWORD:?set ADMIN_PASSWORD in .env}
+      POSTGRES_DB: postgres
+    ports:
+      - "${DB_PORT:-5434}:5432"
+    volumes:
+      - k8s_rag_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${ADMIN_USER:-fde} -d postgres"]
+      interval: 3s
+      retries: 20
+volumes:
+  k8s_rag_pgdata:

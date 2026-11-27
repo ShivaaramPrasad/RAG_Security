@@ -1,0 +1,4 @@
+pg8000>=1.31,<2
+fastembed>=0.6,<1
+numpy>=1.26
+python-dotenv>=1,<2

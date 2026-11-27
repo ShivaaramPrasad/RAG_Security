@@ -1,0 +1,42 @@
+== 1. Authorized user retrieves restricted document (SEC-001: RBAC good practices) ==
+PASS  Meena (Security) sees SEC-001 chunks > 0 => True
+PASS  Divya (App+Security) sees SEC-001 chunks > 0 => True
+
+== 2. Unauthorized users cannot retrieve the same document ==
+PASS  Priya (Application) sees SEC-001 chunks => 0
+PASS  Arjun (Platform) sees SEC-001 chunks => 0
+PASS  Priya top-10 RBAC question contains no SECURITY_ENG chunk => False
+PASS  Arjun cannot see APP-001 => 0
+PASS  Meena cannot see PLAT-002 => 0
+
+== 3. Shared knowledge is readable by everyone ==
+PASS  priya sees SHARED-002 (components) => True
+PASS  arjun sees SHARED-002 (components) => True
+PASS  meena sees SHARED-002 (components) => True
+PASS  divya sees SHARED-002 (components) => True
+
+== 4. Unknown / forged identities cannot read protected chunks ==
+PASS  No identity set at all => 0
+PASS  Unknown user, validly signed by backend => 0
+PASS  Forged: user_id=meena without a signature => 0
+PASS  Forged: user_id=meena with wrong signature => 0
+PASS  Forged: Priya's signature replayed for meena => 0
+
+== 5. Reader role is least-privilege ==
+PASS  Reader cannot read documents => True
+PASS  Reader cannot read document_acl => True
+PASS  Reader cannot read user_groups => True
+PASS  Reader cannot read the signing key => True
+PASS  Reader cannot modify chunks => True
+
+== 6. Revocation takes effect immediately, without re-embedding ==
+PASS  Meena sees SEC-001 before revocation => True
+PASS  Meena denied SEC-001 right after revocation => 0
+PASS  Meena still sees shared SHARED-002 => True
+PASS  Chunk table untouched (count, max chunk_id) - no re-ingest => [736, 2208]
+
+== 7. Restoring membership restores access ==
+PASS  Meena regains SEC-001 after restore => True
+PASS  Chunk table still untouched => [736, 2208]
+
+ALL CHECKS PASSED. --user only simulates identities; production identities must come from a trusted backend that signs them (see README trust boundary).

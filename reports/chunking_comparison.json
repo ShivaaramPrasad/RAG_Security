@@ -1,0 +1,58 @@
+{
+  "fixed": {
+    "config": "size=1000, overlap=150",
+    "chunks": 672,
+    "avg": 980,
+    "min": 154,
+    "max": 1000,
+    "median": 1000,
+    "heading_pct": 65.0,
+    "clean_start_pct": 6.0,
+    "clean_end_pct": 5.2,
+    "broken_code_fences": 82,
+    "tiny_lt150": 0,
+    "oversize_gt1500": 0
+  },
+  "recursive": {
+    "config": "size=1000, overlap=150, seps: ## / ### / #### / blank line / line / sentence / space",
+    "chunks": 732,
+    "avg": 800,
+    "min": 114,
+    "max": 1000,
+    "median": 850,
+    "heading_pct": 60.0,
+    "clean_start_pct": 82.9,
+    "clean_end_pct": 87.8,
+    "broken_code_fences": 12,
+    "tiny_lt150": 2,
+    "oversize_gt1500": 0
+  },
+  "markdown": {
+    "config": "max=1200, min section=250, heading path prefix, code fences never split",
+    "chunks": 736,
+    "avg": 819,
+    "min": 85,
+    "max": 2040,
+    "median": 830,
+    "heading_pct": 100.0,
+    "clean_start_pct": 90.6,
+    "clean_end_pct": 94.0,
+    "broken_code_fences": 8,
+    "tiny_lt150": 2,
+    "oversize_gt1500": 1
+  },
+  "semantic": {
+    "config": "block embeddings, split above 85th-percentile cosine distance, min=300, max=1500",
+    "chunks": 530,
+    "avg": 1059,
+    "min": 30,
+    "max": 11882,
+    "median": 1121,
+    "heading_pct": 64.5,
+    "clean_start_pct": 96.0,
+    "clean_end_pct": 100.0,
+    "broken_code_fences": 0,
+    "tiny_lt150": 3,
+    "oversize_gt1500": 14
+  }
+}
